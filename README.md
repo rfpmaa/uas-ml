@@ -143,14 +143,27 @@ Jalankan seluruh cell secara berurutan.
 
 ## Hasil
 
-Folder **images/** akan berisi visualisasi seperti:
+Folder `images/` berisi visualisasi hasil eksperimen sebagai berikut.
 
-- Correlation Heatmap
-- Confusion Matrix
-- ROC Curve
-- Feature Importance
+### Correlation Heatmap
 
-Model terbaik akan disimpan pada folder **models/**.
+![Correlation Heatmap](images/correlation_heatmap.png)
+
+### Confusion Matrix Random Forest
+
+![Confusion Matrix RF](images/confusion_matrix_rf.png)
+
+### Confusion Matrix SVM
+
+![Confusion Matrix SVM](images/confusion_matrix_svm.png)
+
+### ROC Curve Random Forest
+
+![ROC Curve RF](images/roc_curve_rf.png)
+
+### ROC Curve SVM
+
+![ROC Curve SVM](images/roc_curve_svm.png)
 
 ---
 
