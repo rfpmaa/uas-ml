@@ -146,12 +146,12 @@ Jalankan seluruh cell secara berurutan.
 Folder `images/` berisi visualisasi hasil eksperimen.
 
 ### Correlation Heatmap
-
+![Correlation Heatmap](images/correlation_heatmap.png)
 ![Correlation Heatmap](images/correlation_heatmap.png)
 
 ### Confusion Matrix Random Forest
 
-![Confusion Matrix RF](images/confusion_matrix_rf.png)
+![RF](images/confusion_matrix_rf.png)
 
 ### Confusion Matrix SVM
 
@@ -164,6 +164,7 @@ Folder `images/` berisi visualisasi hasil eksperimen.
 ### ROC Curve SVM
 
 ![ROC Curve SVM](images/roc_curve_svm.png)
+
 
 ---
 
