@@ -143,7 +143,7 @@ Jalankan seluruh cell secara berurutan.
 
 ## Hasil
 
-Folder `images/` berisi visualisasi hasil eksperimen sebagai berikut.
+Folder `images/` berisi visualisasi hasil eksperimen.
 
 ### Correlation Heatmap
 
