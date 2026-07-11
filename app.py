@@ -1,12 +1,17 @@
 import streamlit as st
 import pandas as pd
-import joblib
 
 # ==========================
 # LOAD DATASET & MODEL
 # ==========================
 df = pd.read_csv("dataset/beasiswa.csv")
-model = joblib.load("models/random_forest_model.pkl")
+from sklearn.ensemble import RandomForestClassifier
+
+X = df.drop("Diterima_Beasiswa", axis=1)
+y = df["Diterima_Beasiswa"]
+
+model = RandomForestClassifier(random_state=42)
+model.fit(X, y)
 
 # ==========================
 # PAGE CONFIG
@@ -250,7 +255,7 @@ st.subheader("ROC Curve Random Forest")
 st.image("images/roc_curve_rf.png", width=350)
 
 st.subheader("ROC Curve SVM")
-st.image("images/confusion_matrix_rf.png", width=350)
+st.image("images/confusion_curve_svm.png", width=350)
 
 st.markdown("---")
 
