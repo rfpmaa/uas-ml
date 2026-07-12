@@ -1,17 +1,10 @@
 import streamlit as st
-import pandas as pd
+import joblib
 
 # ==========================
-# LOAD DATASET & MODEL
+# LOAD MODEL
 # ==========================
-df = pd.read_csv("dataset/beasiswa.csv")
-from sklearn.ensemble import RandomForestClassifier
-
-X = df.drop("Diterima_Beasiswa", axis=1)
-y = df["Diterima_Beasiswa"]
-
-model = RandomForestClassifier(random_state=42)
-model.fit(X, y)
+model = joblib.load("models/random_forest_model.pkl")
 
 # ==========================
 # PAGE CONFIG
