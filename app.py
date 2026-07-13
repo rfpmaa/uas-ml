@@ -17,8 +17,29 @@ st.set_page_config(
 # ==========================
 st.markdown("""
 <style>
+/* Styling Umum */
 h1 { text-align: center; color: #0068C9; }
 h2, h3 { color: #0068C9; }
+
+/* 1. MENGHILANGKAN BULET-BULET (RADIO CIRCLE) DI SIDEBAR */
+[data-testid="stSidebar"] div[role="radiogroup"] div[data-baseweb="radio"] > div:first-child {
+    display: none !important;
+}
+
+/* 2. MENGUBAH WARNA TEKS MENU YANG SEDANG AKTIF/DIPILIH */
+[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] p,
+[data-testid="stSidebar"] div[role="radiogroup"] label[aria-checked="true"] p,
+[data-testid="stSidebar"] div[role="radiogroup"] div[data-baseweb="radio"] input[type="radio"]:checked + div p {
+    color: #0068C9 !important; /* Warna Biru */
+    font-weight: 800 !important; /* Cetak Tebal */
+    font-size: 17px !important; /* Sedikit lebih besar */
+}
+
+/* Menambahkan efek hover (saat mouse diarahkan ke menu) */
+[data-testid="stSidebar"] div[role="radiogroup"] label:hover p {
+    color: #FF4B4B !important; /* Warna Merah Streamlit */
+    cursor: pointer;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -39,17 +60,27 @@ model = load_model()
 # ==========================
 # SIDEBAR NAVIGATION
 # ==========================
-st.sidebar.image("https://cdn-icons-png.flaticon.com/512/3135/3135810.png", width=100)
+# Trik HTML untuk membuat gambar ke tengah persis
+st.sidebar.markdown(
+    """
+    <div style="display: flex; justify-content: center;">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135810.png" width="120">
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
+
 st.sidebar.title("Menu Utama")
-# 5 Menu ini disesuaikan PERSIS dengan rubrik UAS kamu
+
+# Teks menu dibuat bersih tanpa angka dan emoji
 menu = st.sidebar.radio(
     "Navigasi Halaman:",
     [
-        "1️⃣ Dashboard EDA", 
-        "2️⃣ Model Demo", 
-        "3️⃣ Evaluasi Model", 
-        "4️⃣ Interpretasi Hasil",
-        "5️⃣ Dokumentasi"
+        "Dashboard EDA", 
+        "Model Demo", 
+        "Evaluasi Model", 
+        "Interpretasi Hasil",
+        "Dokumentasi"
     ]
 )
 
@@ -59,7 +90,7 @@ st.sidebar.info("Aplikasi Machine Learning ini dibuat untuk memenuhi Tugas Akhir
 # ==========================
 # MENU 1: DASHBOARD EDA
 # ==========================
-if menu == "1️⃣ Dashboard EDA":
+if menu == "Dashboard EDA":
     st.title("📊 Dashboard Exploratory Data Analysis")
     st.markdown("---")
     
@@ -81,7 +112,6 @@ if menu == "1️⃣ Dashboard EDA":
     with col_chart1:
         st.subheader("Distribusi Target (Diterima vs Ditolak)")
         st.write("Grafik interaktif jumlah mahasiswa berdasarkan status penerimaan.")
-        # Visualisasi Interaktif Bawaan Streamlit
         st.bar_chart(df['Diterima_Beasiswa'].value_counts())
         
     with col_chart2:
@@ -95,7 +125,7 @@ if menu == "1️⃣ Dashboard EDA":
 # ==========================
 # MENU 2: MODEL DEMO (PREDIKSI)
 # ==========================
-elif menu == "2️⃣ Model Demo":
+elif menu == "Model Demo":
     st.title("🔮 Model Demo (Prediksi Kelayakan)")
     st.markdown("---")
     st.write("Silakan masukkan data mahasiswa pada form di bawah ini untuk mendapatkan prediksi dari model **Random Forest**.")
@@ -152,7 +182,7 @@ elif menu == "2️⃣ Model Demo":
 # ==========================
 # MENU 3: EVALUASI MODEL
 # ==========================
-elif menu == "3️⃣ Evaluasi Model":
+elif menu == "Evaluasi Model":
     st.title("📈 Evaluasi Model Machine Learning")
     st.markdown("---")
     
@@ -189,7 +219,7 @@ elif menu == "3️⃣ Evaluasi Model":
 # ==========================
 # MENU 4: INTERPRETASI HASIL
 # ==========================
-elif menu == "4️⃣ Interpretasi Hasil":
+elif menu == "Interpretasi Hasil":
     st.title("💡 Interpretasi Hasil & Business Insights")
     st.markdown("---")
     
@@ -213,7 +243,7 @@ elif menu == "4️⃣ Interpretasi Hasil":
 # ==========================
 # MENU 5: DOKUMENTASI
 # ==========================
-elif menu == "5️⃣ Dokumentasi":
+elif menu == "Dokumentasi":
     st.title("📖 Dokumentasi Proyek")
     st.markdown("---")
     
