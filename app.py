@@ -8,9 +8,6 @@ import joblib
 df = pd.read_csv("dataset/beasiswa.csv")
 model = joblib.load("models/random_forest_model.pkl")
 
-st.write("Feature model:")
-st.write(list(model.feature_names_in_))
-
 # ==========================
 # PAGE CONFIG
 # ==========================
@@ -210,19 +207,17 @@ if st.button("Prediksi"):
 
     import pandas as pd
 
-    data = pd.DataFrame(data, columns=[
-        "IPK",
-        "Semester",
-        "Penghasilan_Orang_Tua",
-        "Jumlah_Tanggungan",
-        "Prestasi",
-        "Aktif_Organisasi",
-        "Status_Rumah",
-        "Jenis_Kelamin"
-    ])
+data = pd.DataFrame(data, columns=[
+    "IPK",
+    "Semester",
+    "Penghasilan_Ortu",
+    "Tanggungan_Keluarga",
+    "Prestasi",
+    "Aktif_Organisasi",
+    "Status_Rumah",
+    "Jenis_Kelamin"
+])
 
-    st.write(data)
-    st.write(data.dtypes)
 
     hasil = model.predict(data)
     prob = model.predict_proba(data)
