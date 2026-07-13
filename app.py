@@ -1,9 +1,11 @@
 import streamlit as st
+import pandas as pd
 import joblib
 
 # ==========================
-# LOAD MODEL
+# LOAD DATASET & MODEL
 # ==========================
+df = pd.read_csv("dataset/beasiswa.csv")
 model = joblib.load("models/random_forest_model.pkl")
 
 # ==========================
@@ -24,7 +26,6 @@ h1{
 h2{
     color:#0068C9;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -202,6 +203,20 @@ if st.button("Prediksi"):
         rumah_map[status_rumah],
         jk_map[jenis_kelamin]
     ]]
+
+
+    import pandas as pd
+
+    data = pd.DataFrame(data, columns=[
+        "IPK",
+        "Semester",
+        "Penghasilan_Orang_Tua",
+        "Jumlah_Tanggungan",
+        "Prestasi",
+        "Aktif_Organisasi",
+        "Status_Rumah",
+        "Jenis_Kelamin"
+    ])
 
     hasil = model.predict(data)
     prob = model.predict_proba(data)
