@@ -207,17 +207,16 @@ if st.button("Prediksi"):
 
     import pandas as pd
 
-data = pd.DataFrame(data, columns=[
-    "IPK",
-    "Semester",
-    "Penghasilan_Ortu",
-    "Tanggungan_Keluarga",
-    "Prestasi",
-    "Aktif_Organisasi",
-    "Status_Rumah",
-    "Jenis_Kelamin"
-])
-
+    data = pd.DataFrame(data, columns=[
+        "IPK",
+        "Semester",
+        "Penghasilan_Ortu",
+        "Tanggungan_Keluarga",
+        "Prestasi",
+        "Aktif_Organisasi",
+        "Status_Rumah",
+        "Jenis_Kelamin"
+    ])
 
     hasil = model.predict(data)
     prob = model.predict_proba(data)
