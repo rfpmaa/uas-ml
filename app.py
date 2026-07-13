@@ -225,6 +225,9 @@ if st.button("Prediksi"):
         "Jenis_Kelamin"
     ])
 
+    st.write(data)
+    st.write(data.dtypes)
+
     hasil = model.predict(data)
     prob = model.predict_proba(data)
 
