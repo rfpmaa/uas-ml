@@ -8,6 +8,13 @@ import joblib
 df = pd.read_csv("dataset/beasiswa.csv")
 model = joblib.load("models/random_forest_model.pkl")
 
+st.write("Model:", type(model))
+
+if hasattr(model, "feature_names_in_"):
+    st.write("Feature:", model.feature_names_in_)
+else:
+    st.write("Model tidak memiliki feature_names_in_")
+
 # ==========================
 # PAGE CONFIG
 # ==========================
