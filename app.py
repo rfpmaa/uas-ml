@@ -18,8 +18,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 h1 { text-align: center; color: #0068C9; }
-h2 { color: #0068C9; }
-.css-1d391kg { padding-top: 2rem; }
+h2, h3 { color: #0068C9; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -41,95 +40,65 @@ model = load_model()
 # SIDEBAR NAVIGATION
 # ==========================
 st.sidebar.image("https://cdn-icons-png.flaticon.com/512/3135/3135810.png", width=100)
-st.sidebar.title("Navigasi Menu")
+st.sidebar.title("Menu Utama")
+# 5 Menu ini disesuaikan PERSIS dengan rubrik UAS kamu
 menu = st.sidebar.radio(
-    "Pilih Halaman:",
-    ["🏠 Beranda", "📊 Dashboard EDA", "🔮 Prediksi Beasiswa", "📈 Evaluasi & Dokumentasi"]
+    "Navigasi Halaman:",
+    [
+        "1️⃣ Dashboard EDA", 
+        "2️⃣ Model Demo", 
+        "3️⃣ Evaluasi Model", 
+        "4️⃣ Interpretasi Hasil",
+        "5️⃣ Dokumentasi"
+    ]
 )
 
 st.sidebar.markdown("---")
 st.sidebar.info("Aplikasi Machine Learning ini dibuat untuk memenuhi Tugas Akhir (UAS).")
 
 # ==========================
-# HALAMAN 1: BERANDA
+# MENU 1: DASHBOARD EDA
 # ==========================
-if menu == "🏠 Beranda":
-    st.title("🎓 Sistem Prediksi Penerima Beasiswa")
+if menu == "1️⃣ Dashboard EDA":
+    st.title("📊 Dashboard Exploratory Data Analysis")
     st.markdown("---")
     
-    st.header("Latar Belakang Proyek")
-    st.write("""
-    Selamat datang di Aplikasi Prediksi Kelayakan Penerima Beasiswa. 
-    Aplikasi ini dikembangkan sebagai solusi berbasis *Artificial Intelligence* (AI) 
-    untuk membantu institusi pendidikan dalam menyeleksi kandidat penerima beasiswa secara objektif, 
-    cepat, dan akurat berdasarkan data historis.
+    st.write("Visualisasi interaktif dan analisis dari dataset historis pendaftar beasiswa.")
     
-    Proses seleksi manual seringkali memakan waktu dan rentan terhadap bias subjektif. 
-    Oleh karena itu, pendekatan *Machine Learning* digunakan untuk memetakan pola dari 
-    data akademik (seperti IPK dan Semester) serta data non-akademik (seperti Penghasilan Orang Tua, 
-    Tanggungan, dan Prestasi) guna memprediksi kelayakan seorang mahasiswa.
-    """)
-    
-    st.header("Metodologi Penelitian (CRISP-DM)")
-    st.write("Penelitian dan pengembangan aplikasi ini mematuhi standar industri **CRISP-DM** *(Cross-Industry Standard Process for Data Mining)* yang terdiri dari 6 tahapan utama:")
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown("""
-        1. **Business Understanding:** Memahami masalah seleksi beasiswa dan menentukan tujuan pembuatan model prediktif.
-        2. **Data Understanding:** Mengumpulkan **300 data mahasiswa** dan melakukan analisis awal untuk melihat karakteristik dari 8 atribut yang digunakan.
-        3. **Data Preparation:** Membersihkan data, melakukan transformasi (seperti *label encoding* untuk data kategorikal), dan membagi data menjadi *Training* dan *Testing set*.
-        """)
-    with col2:
-        st.markdown("""
-        4. **Modeling:** Melatih algoritma Machine Learning. Pada eksperimen ini, digunakan **Random Forest** dan **Support Vector Machine (SVM)**.
-        5. **Evaluation:** Mengukur performa model menggunakan *Confusion Matrix* dan akurasi untuk menentukan model terbaik yang akan di-deploy.
-        6. **Deployment:** Mengimplementasikan model terbaik (Random Forest) ke dalam aplikasi interaktif berbasis web menggunakan antarmuka **Streamlit** (aplikasi yang sedang Anda gunakan saat ini).
-        """)
-
-# ==========================
-# HALAMAN 2: DASHBOARD EDA
-# ==========================
-elif menu == "📊 Dashboard EDA":
-    st.title("📊 Exploratory Data Analysis (EDA)")
-    st.markdown("---")
-    
-    st.write("""
-    Halaman ini menampilkan ringkasan data yang digunakan untuk melatih model Machine Learning. 
-    Tahap EDA sangat penting untuk menemukan *insight*, melihat sebaran data, dan memahami korelasi antar variabel.
-    """)
-    
-    st.subheader("Cuplikan Dataset Mahasiswa")
-    st.dataframe(df, use_container_width=True)
-    
-    st.subheader("Statistik Utama Dataset")
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Total Baris Data", f"{df.shape[0]} Data")
+        st.metric("Total Data", f"{df.shape[0]} Baris")
     with col2:
-        st.metric("Total Fitur (X)", f"{df.shape[1]-1} Kolom")
+        st.metric("Total Fitur", f"{df.shape[1]-1} Kolom")
     with col3:
-        st.metric("Target Prediksi (Y)", "Diterima_Beasiswa")
+        st.metric("Diterima (1)", len(df[df['Diterima_Beasiswa'] == 1]))
     with col4:
-        st.metric("Algoritma Final", "Random Forest")
-        
+        st.metric("Ditolak (0)", len(df[df['Diterima_Beasiswa'] == 0]))
+
     st.markdown("---")
     
-    st.subheader("Analisis Korelasi (Heatmap)")
-    st.write("""
-    Heatmap di bawah ini menunjukkan seberapa kuat hubungan antar fitur dalam dataset. 
-    Nilai yang mendekati 1 atau -1 menunjukkan korelasi yang kuat terhadap peluang mahasiswa diterima beasiswanya.
-    """)
-    # Pastikan file gambar ini benar-benar ada di GitHub di folder 'images'
-    st.image("images/correlation_heatmap.png", caption="Korelasi Antar Variabel", width=600)
+    col_chart1, col_chart2 = st.columns(2)
+    with col_chart1:
+        st.subheader("Distribusi Target (Diterima vs Ditolak)")
+        st.write("Grafik interaktif jumlah mahasiswa berdasarkan status penerimaan.")
+        # Visualisasi Interaktif Bawaan Streamlit
+        st.bar_chart(df['Diterima_Beasiswa'].value_counts())
+        
+    with col_chart2:
+        st.subheader("Analisis Korelasi (Heatmap)")
+        st.write("Hubungan antar variabel. Semakin mendekati 1 atau -1, semakin kuat pengaruhnya.")
+        st.image("images/correlation_heatmap.png", use_container_width=True)
+
+    st.subheader("Cuplikan Dataset")
+    st.dataframe(df, use_container_width=True)
 
 # ==========================
-# HALAMAN 3: PREDIKSI
+# MENU 2: MODEL DEMO (PREDIKSI)
 # ==========================
-elif menu == "🔮 Prediksi Beasiswa":
-    st.title("🔮 Form Prediksi Beasiswa")
+elif menu == "2️⃣ Model Demo":
+    st.title("🔮 Model Demo (Prediksi Kelayakan)")
     st.markdown("---")
-    st.write("Silakan masukkan data mahasiswa yang akan dievaluasi ke dalam formulir di bawah ini. Pastikan data yang dimasukkan akurat.")
+    st.write("Silakan masukkan data mahasiswa pada form di bawah ini untuk mendapatkan prediksi dari model **Random Forest**.")
     
     with st.container():
         col1, col2 = st.columns(2)
@@ -137,8 +106,7 @@ elif menu == "🔮 Prediksi Beasiswa":
             st.markdown("#### 🎓 Data Akademik & Ekonomi")
             ipk = st.number_input("IPK (Skala 4.00)", min_value=0.00, max_value=4.00, value=3.00, step=0.01)
             semester = st.selectbox("Semester Saat Ini", [1,2,3,4,5,6,7,8])
-            penghasilan_input = st.text_input("Penghasilan Orang Tua (Rp)", value="3.000.000", help="Ketik menggunakan angka dan titik. Contoh: 3.500.000")
-            # Membersihkan input penghasilan dari titik/koma
+            penghasilan_input = st.text_input("Penghasilan Orang Tua (Rp)", value="3.000.000")
             penghasilan = int(penghasilan_input.replace(".", "").replace(",", ""))
             tanggungan = st.number_input("Jumlah Tanggungan Keluarga", min_value=1, max_value=10, value=3)
 
@@ -149,7 +117,6 @@ elif menu == "🔮 Prediksi Beasiswa":
             status_rumah = st.selectbox("Status Kepemilikan Tempat Tinggal", ["Kontrak", "Kos/Asrama", "Menumpang", "Milik Sendiri"])
             jenis_kelamin = st.selectbox("Jenis Kelamin", ["L", "P"])
 
-    # Mapping nilai inputan
     prestasi_map = {"Internasional":0, "Kabupaten":1, "Nasional":2, "Provinsi":3, "Tidak Ada":4}
     organisasi_map = {"Tidak":0, "Ya":1}
     rumah_map = {"Kontrak":0, "Kos/Asrama":1, "Menumpang":2, "Milik Sendiri":3}
@@ -157,19 +124,13 @@ elif menu == "🔮 Prediksi Beasiswa":
 
     st.markdown("<br>", unsafe_allow_html=True)
     
-    if st.button("🚀 Proses Prediksi Kelayakan", use_container_width=True):
+    if st.button("🚀 Prediksi Sekarang", use_container_width=True):
         data_input = [[
-            ipk,
-            semester,
-            penghasilan,
-            tanggungan,
-            prestasi_map[prestasi],
-            organisasi_map[organisasi],
-            rumah_map[status_rumah],
-            jk_map[jenis_kelamin]
+            ipk, semester, penghasilan, tanggungan, 
+            prestasi_map[prestasi], organisasi_map[organisasi], 
+            rumah_map[status_rumah], jk_map[jenis_kelamin]
         ]]
 
-        # Nama kolom sesuai dataset beasiswa.csv
         data_df = pd.DataFrame(data_input, columns=[
             "IPK", "Semester", "Penghasilan_Ortu", "Tanggungan_Keluarga", 
             "Prestasi", "Aktif_Organisasi", "Status_Rumah", "Jenis_Kelamin"
@@ -179,66 +140,106 @@ elif menu == "🔮 Prediksi Beasiswa":
         prob = model.predict_proba(data_df)
 
         st.markdown("---")
-        st.subheader("🎯 Kesimpulan Hasil Prediksi")
+        st.subheader("🎯 Hasil Prediksi Model")
 
         if hasil[0] == 1:
-            st.success("🎉 Berdasarkan analisis pola data, Mahasiswa ini diprediksi **LAYAK** menerima beasiswa.")
-            st.metric("Tingkat Kepercayaan Model (Probabilitas)", f"{prob[0][1]*100:.2f}%")
+            st.success("🎉 Mahasiswa diprediksi **LAYAK** menerima beasiswa.")
+            st.metric("Probabilitas/Kepercayaan Model", f"{prob[0][1]*100:.2f}%")
         else:
-            st.error("⚠️ Berdasarkan analisis pola data, Mahasiswa ini diprediksi **TIDAK LAYAK** menerima beasiswa.")
-            st.metric("Tingkat Kepercayaan Model (Probabilitas)", f"{prob[0][0]*100:.2f}%")
-            
-        st.info("💡 **Catatan:** Model ini berfungsi sebagai Sistem Pendukung Keputusan (SPK). Keputusan final pencairan beasiswa tetap berada di tangan panitia seleksi/institusi.")
+            st.error("⚠️ Mahasiswa diprediksi **TIDAK LAYAK** menerima beasiswa.")
+            st.metric("Probabilitas/Kepercayaan Model", f"{prob[0][0]*100:.2f}%")
 
 # ==========================
-# HALAMAN 4: EVALUASI
+# MENU 3: EVALUASI MODEL
 # ==========================
-elif menu == "📈 Evaluasi & Dokumentasi":
-    st.title("📈 Evaluasi Performa Model")
+elif menu == "3️⃣ Evaluasi Model":
+    st.title("📈 Evaluasi Model Machine Learning")
     st.markdown("---")
     
-    st.write("""
-    Halaman ini mendokumentasikan hasil komparasi antara algoritma yang diuji selama fase *Training*.
-    Perbandingan dilakukan untuk memastikan bahwa model yang diimplementasikan ke dalam aplikasi 
-    adalah model yang paling optimal dalam mengenali kandidat mahasiswa.
-    """)
-    
-    st.subheader("1. Komparasi Akurasi Algoritma")
+    st.subheader("1. Komparasi Metrik Model")
     hasil_model = pd.DataFrame({
-        "Algoritma Machine Learning": ["Random Forest Classifier", "Support Vector Machine (SVM)"],
-        "Skor Akurasi (Accuracy)": ["73.33%", "70.00%"],
-        "Status": ["✅ Model Terpilih", "❌ Tereliminasi"]
+        "Algoritma": ["Random Forest", "Support Vector Machine (SVM)"],
+        "Akurasi": ["73.33%", "70.00%"],
+        "Keputusan": ["✅ Dipakai di Aplikasi", "❌ Tidak Dipakai"]
     })
     st.table(hasil_model)
     
-    st.write("""
-    Berdasarkan hasil eksperimen komprehensif, algoritma **Random Forest** memperoleh akurasi sebesar **73.33%**, 
-    unggul dibandingkan **Support Vector Machine (SVM)** yang memperoleh **70.00%**. 
-    Random Forest terbukti lebih tangguh menangani data tabular dengan kombinasi fitur numerik dan kategorikal.
-    """)
-    
     st.markdown("---")
     
-    st.subheader("2. Analisis Confusion Matrix")
-    st.write("Confusion matrix menunjukkan seberapa baik model dalam membedakan kelas Positif (Layak) dan Negatif (Tidak Layak).")
-    
+    st.subheader("2. Confusion Matrix")
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("**Random Forest (Terpilih)**")
+        st.markdown("**Random Forest**")
         st.image("images/confusion_matrix_rf.png", use_container_width=True)
     with col2:
-        st.markdown("**SVM (Pembanding)**")
+        st.markdown("**SVM**")
         st.image("images/confusion_matrix_svm.png", use_container_width=True)
 
     st.markdown("---")
     
-    st.subheader("3. Analisis ROC Curve")
-    st.write("Kurva ROC (Receiver Operating Characteristic) mengukur kemampuan model dalam membedakan antar kelas. Area Under Curve (AUC) yang lebih tinggi menunjukkan performa yang lebih baik.")
-    
+    st.subheader("3. ROC Curve")
     col3, col4 = st.columns(2)
     with col3:
-        st.markdown("**Random Forest (Terpilih)**")
+        st.markdown("**Random Forest**")
         st.image("images/roc_curve_rf.png", use_container_width=True)
     with col4:
-        st.markdown("**SVM (Pembanding)**")
+        st.markdown("**SVM**")
         st.image("images/roc_curve_svm.png", use_container_width=True)
+
+# ==========================
+# MENU 4: INTERPRETASI HASIL
+# ==========================
+elif menu == "4️⃣ Interpretasi Hasil":
+    st.title("💡 Interpretasi Hasil & Business Insights")
+    st.markdown("---")
+    
+    st.subheader("Penjelasan Model")
+    st.write("""
+    Berdasarkan tahapan evaluasi, **Random Forest** terbukti sebagai algoritma terbaik dengan akurasi **73.33%**. 
+    Algoritma ini bekerja dengan cara membangun banyak pohon keputusan (*decision trees*) dan menggabungkan hasilnya. 
+    Hal ini membuat Random Forest sangat baik dalam menangani kombinasi data numerik (seperti IPK dan Penghasilan) 
+    serta data kategorikal (seperti Status Rumah dan Prestasi) tanpa mudah terjebak pada *overfitting*.
+    """)
+    
+    st.subheader("Business Insights (Dampak Bisnis/Institusi)")
+    st.success("""
+    Penerapan model Machine Learning ini memberikan 3 keuntungan utama bagi institusi/kampus:
+    
+    1. **Efisiensi Waktu & Biaya:** Panitia seleksi tidak perlu lagi mengecek kelayakan ratusan atau ribuan pelamar secara manual satu per satu. Sistem dapat menyeleksi kandidat dalam hitungan detik.
+    2. **Objektivitas Tinggi (Menghindari Bias):** Keputusan didasarkan murni pada pola data (IPK, Tanggungan, Penghasilan, dll), meminimalisir unsur favoritisme atau kesalahan manusia (*human error*).
+    3. **Tepat Sasaran:** Model membantu memastikan bahwa alokasi dana beasiswa benar-benar jatuh ke tangan mahasiswa yang secara statistik dan historis memiliki profil yang paling membutuhkan dan berprestasi.
+    """)
+
+# ==========================
+# MENU 5: DOKUMENTASI
+# ==========================
+elif menu == "5️⃣ Dokumentasi":
+    st.title("📖 Dokumentasi Proyek")
+    st.markdown("---")
+    
+    st.subheader("Informasi Dataset")
+    st.write("""
+    Dataset yang digunakan merupakan data pendaftar beasiswa yang terdiri dari **300 baris data** dan **9 kolom** (8 Atribut + 1 Target). 
+    * **Atribut (Fitur):** IPK, Semester, Penghasilan Orang Tua, Tanggungan Keluarga, Prestasi, Aktif Organisasi, Status Rumah, Jenis Kelamin.
+    * **Target (Label):** `Diterima_Beasiswa` (1 = Layak/Diterima, 0 = Tidak Layak/Ditolak).
+    """)
+    
+    st.subheader("Metodologi (CRISP-DM)")
+    st.write("Pengembangan aplikasi ini mengikuti standar industri **CRISP-DM**:")
+    st.markdown("""
+    1. **Business Understanding:** Memahami kebutuhan otomatisasi seleksi beasiswa.
+    2. **Data Understanding:** Eksplorasi dataset 300 mahasiswa.
+    3. **Data Preparation:** Encoding data kategorikal (ubah teks jadi angka) dan *data splitting*.
+    4. **Modeling:** Pelatihan algoritma Random Forest dan SVM.
+    5. **Evaluation:** Pemilihan model berdasarkan skor Akurasi tertinggi.
+    6. **Deployment:** Pembuatan antarmuka web interaktif menggunakan Streamlit.
+    """)
+    
+    st.subheader("Cara Penggunaan Aplikasi")
+    st.info("""
+    1. Buka menu **Model Demo** pada navigasi di sebelah kiri.
+    2. Masukkan data mahasiswa pelamar beasiswa ke dalam form yang tersedia.
+    3. Pastikan format angka untuk penghasilan sudah benar.
+    4. Klik tombol **Prediksi Sekarang**.
+    5. Sistem akan mengeluarkan hasil (Layak/Tidak Layak) beserta nilai probabilitasnya.
+    """)
