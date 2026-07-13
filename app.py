@@ -2,9 +2,6 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# ==========================
-# PAGE CONFIG (WAJIB PALING ATAS)
-# ==========================
 st.set_page_config(
     page_title="Sistem Prediksi Beasiswa",
     page_icon="🎓",
@@ -13,31 +10,15 @@ st.set_page_config(
 )
 
 # ==========================
-# CSS CUSTOM UNTUK TAMPILAN
+# CSS CUSTOM 
 # ==========================
 st.markdown("""
 <style>
-/* Styling Umum */
 h1 { text-align: center; color: #0068C9; }
 h2, h3 { color: #0068C9; }
 
-/* 1. MENGHILANGKAN BULET-BULET (RADIO CIRCLE) DI SIDEBAR */
-[data-testid="stSidebar"] div[role="radiogroup"] div[data-baseweb="radio"] > div:first-child {
-    display: none !important;
-}
-
-/* 2. MENGUBAH WARNA TEKS MENU YANG SEDANG AKTIF/DIPILIH */
-[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] p,
-[data-testid="stSidebar"] div[role="radiogroup"] label[aria-checked="true"] p,
-[data-testid="stSidebar"] div[role="radiogroup"] div[data-baseweb="radio"] input[type="radio"]:checked + div p {
-    color: #0068C9 !important; /* Warna Biru */
-    font-weight: 800 !important; /* Cetak Tebal */
-    font-size: 17px !important; /* Sedikit lebih besar */
-}
-
-/* Menambahkan efek hover (saat mouse diarahkan ke menu) */
 [data-testid="stSidebar"] div[role="radiogroup"] label:hover p {
-    color: #FF4B4B !important; /* Warna Merah Streamlit */
+    color: #FF4B4B !important; 
     cursor: pointer;
 }
 </style>
@@ -60,7 +41,6 @@ model = load_model()
 # ==========================
 # SIDEBAR NAVIGATION
 # ==========================
-# Trik HTML untuk membuat gambar ke tengah persis
 st.sidebar.markdown(
     """
     <div style="display: flex; justify-content: center;">
@@ -72,7 +52,6 @@ st.sidebar.markdown(
 
 st.sidebar.title("Menu Utama")
 
-# Teks menu dibuat bersih tanpa angka dan emoji
 menu = st.sidebar.radio(
     "Navigasi Halaman:",
     [
@@ -91,7 +70,7 @@ st.sidebar.info("Aplikasi Machine Learning ini dibuat untuk memenuhi Tugas Akhir
 # MENU 1: DASHBOARD EDA
 # ==========================
 if menu == "Dashboard EDA":
-    st.title("📊 Dashboard Exploratory Data Analysis")
+    st.title("Dashboard Exploratory Data Analysis")
     st.markdown("---")
     
     st.write("Visualisasi interaktif dan analisis dari dataset historis pendaftar beasiswa.")
@@ -126,14 +105,14 @@ if menu == "Dashboard EDA":
 # MENU 2: MODEL DEMO (PREDIKSI)
 # ==========================
 elif menu == "Model Demo":
-    st.title("🔮 Model Demo (Prediksi Kelayakan)")
+    st.title("Model Demo (Prediksi Kelayakan)")
     st.markdown("---")
     st.write("Silakan masukkan data mahasiswa pada form di bawah ini untuk mendapatkan prediksi dari model **Random Forest**.")
     
     with st.container():
         col1, col2 = st.columns(2)
         with col1:
-            st.markdown("#### 🎓 Data Akademik & Ekonomi")
+            st.markdown("#### Data Akademik & Ekonomi")
             ipk = st.number_input("IPK (Skala 4.00)", min_value=0.00, max_value=4.00, value=3.00, step=0.01)
             semester = st.selectbox("Semester Saat Ini", [1,2,3,4,5,6,7,8])
             penghasilan_input = st.text_input("Penghasilan Orang Tua (Rp)", value="3.000.000")
@@ -141,7 +120,7 @@ elif menu == "Model Demo":
             tanggungan = st.number_input("Jumlah Tanggungan Keluarga", min_value=1, max_value=10, value=3)
 
         with col2:
-            st.markdown("#### 🏆 Data Non-Akademik")
+            st.markdown("#### Data Non-Akademik")
             prestasi = st.selectbox("Tingkat Prestasi Tertinggi", ["Internasional", "Kabupaten", "Nasional", "Provinsi", "Tidak Ada"])
             organisasi = st.selectbox("Aktif Berorganisasi?", ["Tidak", "Ya"])
             status_rumah = st.selectbox("Status Kepemilikan Tempat Tinggal", ["Kontrak", "Kos/Asrama", "Menumpang", "Milik Sendiri"])
@@ -154,7 +133,7 @@ elif menu == "Model Demo":
 
     st.markdown("<br>", unsafe_allow_html=True)
     
-    if st.button("🚀 Prediksi Sekarang", use_container_width=True):
+    if st.button("Prediksi", use_container_width=True):
         data_input = [[
             ipk, semester, penghasilan, tanggungan, 
             prestasi_map[prestasi], organisasi_map[organisasi], 
@@ -170,27 +149,27 @@ elif menu == "Model Demo":
         prob = model.predict_proba(data_df)
 
         st.markdown("---")
-        st.subheader("🎯 Hasil Prediksi Model")
+        st.subheader("Hasil Prediksi Model")
 
         if hasil[0] == 1:
-            st.success("🎉 Mahasiswa diprediksi **LAYAK** menerima beasiswa.")
+            st.success("Mahasiswa diprediksi **LAYAK** menerima beasiswa.")
             st.metric("Probabilitas/Kepercayaan Model", f"{prob[0][1]*100:.2f}%")
         else:
-            st.error("⚠️ Mahasiswa diprediksi **TIDAK LAYAK** menerima beasiswa.")
+            st.error("Mahasiswa diprediksi **TIDAK LAYAK** menerima beasiswa.")
             st.metric("Probabilitas/Kepercayaan Model", f"{prob[0][0]*100:.2f}%")
 
 # ==========================
 # MENU 3: EVALUASI MODEL
 # ==========================
 elif menu == "Evaluasi Model":
-    st.title("📈 Evaluasi Model Machine Learning")
+    st.title("Evaluasi Model Machine Learning")
     st.markdown("---")
     
     st.subheader("1. Komparasi Metrik Model")
     hasil_model = pd.DataFrame({
         "Algoritma": ["Random Forest", "Support Vector Machine (SVM)"],
         "Akurasi": ["73.33%", "70.00%"],
-        "Keputusan": ["✅ Dipakai di Aplikasi", "❌ Tidak Dipakai"]
+        "Keputusan": ["Dipakai di Aplikasi", "Tidak Dipakai"]
     })
     st.table(hasil_model)
     
@@ -220,7 +199,7 @@ elif menu == "Evaluasi Model":
 # MENU 4: INTERPRETASI HASIL
 # ==========================
 elif menu == "Interpretasi Hasil":
-    st.title("💡 Interpretasi Hasil & Business Insights")
+    st.title("Interpretasi Hasil & Business Insights")
     st.markdown("---")
     
     st.subheader("Penjelasan Model")
@@ -244,7 +223,7 @@ elif menu == "Interpretasi Hasil":
 # MENU 5: DOKUMENTASI
 # ==========================
 elif menu == "Dokumentasi":
-    st.title("📖 Dokumentasi Proyek")
+    st.title("Dokumentasi Proyek")
     st.markdown("---")
     
     st.subheader("Informasi Dataset")
