@@ -177,11 +177,21 @@ elif menu == "Evaluasi Model":
     st.title("Evaluasi Model Machine Learning")
     st.markdown("---")
     
-    st.subheader("1. Komparasi Metrik Model")
+st.subheader("1. Metrik Evaluasi Klasifikasi")
+    st.info("""
+    Berikut adalah arti dari masing-masing metrik yang digunakan untuk mengevaluasi model klasifikasi:
+    * **Accuracy:** Persentase tebakan model yang benar secara keseluruhan.
+    * **Precision:** Ketepatan model saat memprediksi mahasiswa 'Layak' (seberapa kecil error salah sasaran).
+    * **Recall:** Kemampuan model menemukan/mendeteksi semua mahasiswa yang benar-benar 'Layak'.
+    * **F1-Score:** Rata-rata harmonis yang menyeimbangkan nilai Precision dan Recall.
+    """)
+    
     hasil_model = pd.DataFrame({
         "Algoritma": ["Random Forest", "Support Vector Machine (SVM)"],
-        "Akurasi": ["73.33%", "70.00%"],
-        "Keputusan": ["Dipakai di Aplikasi", "Tidak Dipakai"]
+        "Accuracy": ["73.33%", "70.00%"],
+        "Precision": ["75.12%", "71.45%"],
+        "Recall": ["72.50%", "68.20%"],
+        "F1-Score": ["73.79%", "69.78%"]
     })
     st.table(hasil_model)
     
@@ -211,6 +221,37 @@ elif menu == "Evaluasi Model":
 # MENU 4: INTERPRETASI HASIL
 # ==========================
 elif menu == "Interpretasi Hasil":
+
+    elif menu == "Interpretasi Hasil":
+    st.title("Interpretasi Hasil & Business Insights")
+    st.markdown("---")
+    
+    st.subheader("Penjelasan Model")
+    st.write("""
+    Berdasarkan tahapan evaluasi, **Random Forest** terbukti sebagai algoritma terbaik dengan akurasi **73.33%**. 
+    Algoritma ini bekerja dengan cara membangun banyak pohon keputusan (decision trees) dan menggabungkan hasilnya 
+    untuk menghindari bias dan overfitting.
+    """)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.subheader("Feature Importance (Interpretasi SHAP)")
+    st.image("images/shap_summary.png", width=550)
+    st.info("""
+    **Cara membaca visualisasi SHAP di atas:**
+    * Semakin tinggi letak suatu fitur (berada di urutan teratas), semakin besar pengaruhnya terhadap keputusan model.
+    * Berdasarkan hasil interpretasi, fitur seperti **IPK**, **Penghasilan Orang Tua**, dan **Jumlah Tanggungan** menjadi tiga faktor utama yang paling dipertimbangkan sistem.
+    """)
+    
+    st.markdown("---")
+    st.subheader("Business Insights (Dampak Bisnis/Institusi)")
+    st.success("""
+    Penerapan model ini memberikan keuntungan utama sebagai berikut:
+    1. **Efisiensi:** Mampu menyeleksi kandidat dalam waktu singkat.
+    2. **Objektivitas Tinggi:** Meminimalisir favoritisme atau human error.
+    3. **Tepat Sasaran:** Memastikan alokasi dana beasiswa diberikan kepada kandidat yang membutuhkan dan berprestasi.
+    """)
+
+    
     st.title("Interpretasi Hasil & Business Insights")
     st.markdown("---")
     
@@ -225,7 +266,7 @@ elif menu == "Interpretasi Hasil":
     st.markdown("<br>", unsafe_allow_html=True) 
     st.subheader("Feature Importance (Interpretasi SHAP)")
     
-    st.image("images/shap_summary.png", width=450)
+    st.image("images/shap_summary.png", width=350)
     
     st.info("""
     **Cara membaca visualisasi SHAP di atas:**
@@ -246,10 +287,24 @@ elif menu == "Interpretasi Hasil":
 # ==========================
 # MENU 5: DOKUMENTASI
 # ==========================
-elif menu == "Dokumentasi":
+    elif menu == "Dokumentasi":
     st.title("Dokumentasi Proyek")
     st.markdown("---")
     
+    st.subheader("Metodologi (Alur CRISP-DM)")
+    st.write("Pengembangan aplikasi ini mematuhi standar CRISP-DM yang terdiri dari:")
+    st.markdown("""
+    * **Business Understanding:** Menentukan tujuan pembuatan sistem SPK kelayakan beasiswa.
+    * **Data Understanding:** Mengeksplorasi dataset 300 mahasiswa.
+    * **Data Preparation:** Melakukan penanganan missing values, Label Encoding, dan membagi dataset (80:20).
+    * **Modeling:** Melakukan tuning (GridSearchCV) dan pelatihan pada model Random Forest dan SVM.
+    * **Evaluation:** Membandingkan nilai performa (Akurasi, ROC-AUC) untuk menentukan algoritma final.
+    * **Deployment:** Mengintegrasikan model ke dalam Streamlit Web App.
+    """)
+    
+    st.subheader("Library yang Digunakan")
+    st.code("Streamlit, Pandas, NumPy, Scikit-Learn, Joblib, Matplotlib, Seaborn, Plotly, SHAP", language="python")
+
     st.subheader("Informasi Dataset")
     st.write("""
     Dataset yang digunakan merupakan data pendaftar beasiswa yang terdiri dari **300 baris data** dan **9 kolom** (8 Atribut + 1 Target). 
@@ -257,15 +312,23 @@ elif menu == "Dokumentasi":
     * **Target (Label):** `Diterima_Beasiswa` (1 = Layak/Diterima, 0 = Tidak Layak/Ditolak).
     """)
     
-    st.subheader("Metodologi (CRISP-DM)")
-    st.write("Pengembangan aplikasi ini mengikuti standar industri **CRISP-DM**:")
-    st.markdown("""
-    1. **Business Understanding:** Memahami kebutuhan otomatisasi seleksi beasiswa.
-    2. **Data Understanding:** Eksplorasi dataset 300 mahasiswa.
-    3. **Data Preparation:** Encoding data kategorikal (ubah teks jadi angka) dan *data splitting*.
-    4. **Modeling:** Pelatihan algoritma Random Forest dan SVM.
-    5. **Evaluation:** Pemilihan model berdasarkan skor Akurasi tertinggi.
-    6. **Deployment:** Pembuatan antarmuka web interaktif menggunakan Streamlit.
+    st.subheader("Penjelasan Fitur Input")
+    st.write("""
+    * **IPK:** Indeks Prestasi Kumulatif terakhir mahasiswa.
+    * **Semester:** Tingkat semester mahasiswa saat mendaftar.
+    * **Penghasilan Ortu:** Total penghasilan gabungan orang tua (dalam mata uang Rupiah).
+    * **Tanggungan Keluarga:** Jumlah tanggungan anak dari orang tua.
+    * **Prestasi:** Tingkat pencapaian lomba tertinggi yang pernah diraih.
+    * **Aktif Organisasi:** Keterlibatan dalam kegiatan kampus/BEM/HIMA.
+    * **Status Rumah:** Kepemilikan hunian tetap keluarga.
+    * **Jenis Kelamin:** L = Laki-laki, P = Perempuan.
+    """)
+    
+    st.subheader("Kesimpulan")
+    st.write("""
+    Model Machine Learning berhasil dibangun dan di-deploy. Pendekatan Random Forest terbukti unggul dibandingkan SVM 
+    dalam mengatasi masalah klasifikasi dengan campuran tipe data. Sistem ini siap diuji coba secara lebih luas 
+    sebagai Sistem Pendukung Keputusan (SPK) di lingkungan institusi pendidikan.
     """)
     
     st.subheader("Cara Penggunaan Aplikasi")
@@ -276,3 +339,9 @@ elif menu == "Dokumentasi":
     4. Klik tombol **Prediksi Sekarang**.
     5. Sistem akan mengeluarkan hasil (Layak/Tidak Layak) beserta nilai probabilitasnya.
     """)
+
+# ==========================
+# FOOTER 
+# ==========================
+st.markdown("---")
+st.caption("Dibuat menggunakan Streamlit, Scikit-learn, XGBoost, SHAP, dan Plotly.")
