@@ -177,8 +177,8 @@ elif menu == "Evaluasi Model":
     st.title("Evaluasi Model Machine Learning")
     st.markdown("---")
     
-st.subheader("1. Metrik Evaluasi Klasifikasi")
-st.info("""
+    st.subheader("1. Metrik Evaluasi Klasifikasi")
+    st.info("""
     Berikut adalah arti dari masing-masing metrik yang digunakan untuk mengevaluasi model klasifikasi:
     * **Accuracy:** Persentase tebakan model yang benar secara keseluruhan.
     * **Precision:** Ketepatan model saat memprediksi mahasiswa 'Layak' (seberapa kecil error salah sasaran).
