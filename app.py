@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import plotly.express as px
 
 st.set_page_config(
     page_title="Sistem Prediksi Beasiswa",
@@ -97,6 +98,17 @@ if menu == "Dashboard EDA":
         st.subheader("Analisis Korelasi (Heatmap)")
         st.write("Hubungan antar variabel. Semakin mendekati 1 atau -1, semakin kuat pengaruhnya.")
         st.image("images/correlation_heatmap.png", use_container_width=True)
+
+    st.subheader("Distribusi IPK Berdasarkan Status Beasiswa")
+
+    fig = px.histogram(
+        df,
+        x="IPK",
+        color="Diterima_Beasiswa",
+        barmode="group"
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Cuplikan Dataset")
     st.dataframe(df, use_container_width=True)
@@ -201,6 +213,23 @@ elif menu == "Evaluasi Model":
 elif menu == "Interpretasi Hasil":
     st.title("Interpretasi Hasil & Business Insights")
     st.markdown("---")
+
+    st.subheader("Feature Importance (SHAP)")
+    st.image(
+        "images/shap_summary.png",
+        width=700
+    )
+    st.write("""
+    Visualisasi SHAP menunjukkan kontribusi masing-masing fitur terhadap
+    keputusan model Random Forest.
+
+    Semakin tinggi nilai SHAP suatu fitur, semakin besar pengaruhnya terhadap
+    hasil prediksi.
+
+    Berdasarkan hasil interpretasi, fitur seperti IPK, Penghasilan Orang Tua,
+    dan Jumlah Tanggungan menjadi faktor yang paling berpengaruh dalam
+    penentuan penerima beasiswa.
+    """)
     
     st.subheader("Penjelasan Model")
     st.write("""
