@@ -221,8 +221,6 @@ elif menu == "Evaluasi Model":
 # MENU 4: INTERPRETASI HASIL
 # ==========================
 elif menu == "Interpretasi Hasil":
-
-    elif menu == "Interpretasi Hasil":
     st.title("Interpretasi Hasil & Business Insights")
     st.markdown("---")
     
