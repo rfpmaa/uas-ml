@@ -285,7 +285,7 @@ elif menu == "Interpretasi Hasil":
 # ==========================
 # MENU 5: DOKUMENTASI
 # ==========================
-    elif menu == "Dokumentasi":
+elif menu == "Dokumentasi":
     st.title("Dokumentasi Proyek")
     st.markdown("---")
     
