@@ -3,5 +3,8 @@ pandas
 numpy<2.0.0
 matplotlib
 seaborn
+plotly
 joblib
 scikit-learn
+xgboost
+shap
