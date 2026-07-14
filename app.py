@@ -71,7 +71,7 @@ st.sidebar.info("Aplikasi Machine Learning ini dibuat untuk memenuhi Tugas Akhir
 # MENU 1: DASHBOARD EDA
 # ==========================
 if menu == "Dashboard EDA":
-    st.title("Dashboard Exploratory Data Analysis")
+    st.title("Dashboard Exploratory Data Analysis (EDA)")
     st.markdown("---")
     
     st.write("Visualisasi interaktif dan analisis dari dataset historis pendaftar beasiswa.")
@@ -176,16 +176,8 @@ elif menu == "Model Demo":
 elif menu == "Evaluasi Model":
     st.title("Evaluasi Model Machine Learning")
     st.markdown("---")
-    
+
     st.subheader("1. Metrik Evaluasi Klasifikasi")
-    st.info("""
-    Berikut adalah arti dari masing-masing metrik yang digunakan untuk mengevaluasi model klasifikasi:
-    * **Accuracy:** Persentase tebakan model yang benar secara keseluruhan.
-    * **Precision:** Ketepatan model saat memprediksi mahasiswa 'Layak' (seberapa kecil error salah sasaran).
-    * **Recall:** Kemampuan model menemukan/mendeteksi semua mahasiswa yang benar-benar 'Layak'.
-    * **F1-Score:** Rata-rata harmonis yang menyeimbangkan nilai Precision dan Recall.
-    """)
-    
     hasil_model = pd.DataFrame({
         "Algoritma": ["Random Forest", "Support Vector Machine (SVM)"],
         "Accuracy": ["73.33%", "70.00%"],
@@ -194,6 +186,14 @@ elif menu == "Evaluasi Model":
         "F1-Score": ["73.79%", "69.78%"]
     })
     st.table(hasil_model)
+
+    st.info("""
+    Berikut adalah arti dari masing-masing metrik yang digunakan untuk mengevaluasi model klasifikasi:
+    * **Accuracy:** Persentase tebakan model yang benar secara keseluruhan.
+    * **Precision:** Ketepatan model saat memprediksi mahasiswa 'Layak' (seberapa kecil error salah sasaran).
+    * **Recall:** Kemampuan model menemukan/mendeteksi semua mahasiswa yang benar-benar 'Layak'.
+    * **F1-Score:** Rata-rata harmonis yang menyeimbangkan nilai Precision dan Recall.
+    """)
     
     st.markdown("---")
     
@@ -221,35 +221,6 @@ elif menu == "Evaluasi Model":
 # MENU 4: INTERPRETASI HASIL
 # ==========================
 elif menu == "Interpretasi Hasil":
-    st.title("Interpretasi Hasil & Business Insights")
-    st.markdown("---")
-    
-    st.subheader("Penjelasan Model")
-    st.write("""
-    Berdasarkan tahapan evaluasi, **Random Forest** terbukti sebagai algoritma terbaik dengan akurasi **73.33%**. 
-    Algoritma ini bekerja dengan cara membangun banyak pohon keputusan (decision trees) dan menggabungkan hasilnya 
-    untuk menghindari bias dan overfitting.
-    """)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.subheader("Feature Importance (Interpretasi SHAP)")
-    st.image("images/shap_summary.png", width=550)
-    st.info("""
-    **Cara membaca visualisasi SHAP di atas:**
-    * Semakin tinggi letak suatu fitur (berada di urutan teratas), semakin besar pengaruhnya terhadap keputusan model.
-    * Berdasarkan hasil interpretasi, fitur seperti **IPK**, **Penghasilan Orang Tua**, dan **Jumlah Tanggungan** menjadi tiga faktor utama yang paling dipertimbangkan sistem.
-    """)
-    
-    st.markdown("---")
-    st.subheader("Business Insights (Dampak Bisnis/Institusi)")
-    st.success("""
-    Penerapan model ini memberikan keuntungan utama sebagai berikut:
-    1. **Efisiensi:** Mampu menyeleksi kandidat dalam waktu singkat.
-    2. **Objektivitas Tinggi:** Meminimalisir favoritisme atau human error.
-    3. **Tepat Sasaran:** Memastikan alokasi dana beasiswa diberikan kepada kandidat yang membutuhkan dan berprestasi.
-    """)
-
-    
     st.title("Interpretasi Hasil & Business Insights")
     st.markdown("---")
     
@@ -322,13 +293,6 @@ elif menu == "Dokumentasi":
     * **Jenis Kelamin:** L = Laki-laki, P = Perempuan.
     """)
     
-    st.subheader("Kesimpulan")
-    st.write("""
-    Model Machine Learning berhasil dibangun dan di-deploy. Pendekatan Random Forest terbukti unggul dibandingkan SVM 
-    dalam mengatasi masalah klasifikasi dengan campuran tipe data. Sistem ini siap diuji coba secara lebih luas 
-    sebagai Sistem Pendukung Keputusan (SPK) di lingkungan institusi pendidikan.
-    """)
-    
     st.subheader("Cara Penggunaan Aplikasi")
     st.info("""
     1. Buka menu **Model Demo** pada navigasi di sebelah kiri.
@@ -337,9 +301,3 @@ elif menu == "Dokumentasi":
     4. Klik tombol **Prediksi Sekarang**.
     5. Sistem akan mengeluarkan hasil (Layak/Tidak Layak) beserta nilai probabilitasnya.
     """)
-
-# ==========================
-# FOOTER 
-# ==========================
-st.markdown("---")
-st.caption("Dibuat menggunakan Streamlit, Scikit-learn, XGBoost, SHAP, dan Plotly.")
