@@ -270,9 +270,13 @@ elif menu == "Dokumentasi":
     * **Evaluation:** Membandingkan nilai performa (Akurasi, ROC-AUC) untuk menentukan algoritma final.
     * **Deployment:** Mengintegrasikan model ke dalam Streamlit Web App.
     """)
+
+    st.write("")
     
     st.subheader("Library yang Digunakan")
     st.code("Streamlit, Pandas, NumPy, Scikit-Learn, Joblib, Matplotlib, Seaborn, Plotly, SHAP", language="python")
+
+    st.write("")
 
     st.subheader("Informasi Dataset")
     st.write("""
@@ -280,6 +284,8 @@ elif menu == "Dokumentasi":
     * **Atribut (Fitur):** IPK, Semester, Penghasilan Orang Tua, Tanggungan Keluarga, Prestasi, Aktif Organisasi, Status Rumah, Jenis Kelamin.
     * **Target (Label):** `Diterima_Beasiswa` (1 = Layak/Diterima, 0 = Tidak Layak/Ditolak).
     """)
+
+    st.write("")
     
     st.subheader("Penjelasan Fitur Input")
     st.write("""
@@ -292,6 +298,8 @@ elif menu == "Dokumentasi":
     * **Status Rumah:** Kepemilikan hunian tetap keluarga.
     * **Jenis Kelamin:** L = Laki-laki, P = Perempuan.
     """)
+
+    st.write("")
     
     st.subheader("Cara Penggunaan Aplikasi")
     st.info("""
