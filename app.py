@@ -222,11 +222,10 @@ elif menu == "Interpretasi Hasil":
     serta data kategorikal (seperti Status Rumah dan Prestasi) tanpa mudah terjebak pada *overfitting*.
     """)
 
-    st.markdown("<br>", unsafe_allow_html=True) # Memberi sedikit jarak
+    st.markdown("<br>", unsafe_allow_html=True) 
     st.subheader("Feature Importance (Interpretasi SHAP)")
     
-    # Gambar dikecilkan dengan width 550 agar pas dan rapi
-    st.image("images/shap_summary.png", width=550)
+    st.image("images/shap_summary.png", width=450)
     
     st.info("""
     **Cara membaca visualisasi SHAP di atas:**
