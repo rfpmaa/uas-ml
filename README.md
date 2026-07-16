@@ -216,47 +216,6 @@ streamlit run app.py
 
 ---
 
-# Tampilan Aplikasi Streamlit
-
-<table>
-<tr>
-
-<td align="center">
-<b>Dashboard EDA</b><br>
-<img src="images/dashboard.png" width="300">
-</td>
-
-<td align="center">
-<b>Model Demo</b><br>
-<img src="images/model_demo.png" width="300">
-</td>
-
-</tr>
-
-<tr>
-
-<td align="center">
-<b>Evaluasi Model</b><br>
-<img src="images/evaluasi.png" width="300">
-</td>
-
-<td align="center">
-<b>Interpretasi Hasil</b><br>
-<img src="images/interpretasi.png" width="300">
-</td>
-
-</tr>
-
-<tr>
-<td colspan="2" align="center">
-<b>Dokumentasi</b><br>
-<img src="images/dokumentasi.png" width="500">
-</td>
-</tr>
-
-</table>
-
----
 
 ## Deployment
 
@@ -266,7 +225,7 @@ https://github.com/rfpmaa/uas-ml
 
 **Streamlit**
 
-*(Tambahkan link deployment Streamlit di sini.)*
+https://uas-ml-rafania15609.streamlit.app/
 
 **YouTube Presentation**
 
@@ -278,8 +237,7 @@ https://github.com/rfpmaa/uas-ml
 
 **Rafania Putri Mahendra**
 
+Mata Kuliah Pembelajaran Mesin
 Program Studi Teknik Informatika  
 Fakultas Ilmu Komputer  
 Universitas Dian Nuswantoro  
-
-Mata Kuliah Pembelajaran Mesin
