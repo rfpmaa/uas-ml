@@ -1,18 +1,16 @@
-## Scholarship Eligibility Prediction using Machine Learning
+# Scholarship Eligibility Prediction using Machine Learning
 
 ## Deskripsi Proyek
 
-Proyek ini bertujuan untuk membangun model Machine Learning yang dapat memprediksi apakah seorang mahasiswa layak menerima beasiswa berdasarkan data akademik dan kondisi sosial ekonomi.
+Proyek ini bertujuan untuk membangun model Machine Learning yang dapat memprediksi kelayakan penerima beasiswa berdasarkan data akademik dan kondisi sosial ekonomi mahasiswa. Model dikembangkan menggunakan algoritma Random Forest, Support Vector Machine (SVM), dan Extreme Gradient Boosting (XGBoost), kemudian dibandingkan untuk memperoleh algoritma dengan performa terbaik.
 
-Penelitian ini merupakan implementasi tahapan Machine Learning mulai dari data preprocessing, pemodelan, evaluasi, hingga deployment sederhana sebagai bagian dari Proyek Akhir Mata Kuliah Pembelajaran Mesin.
+Penelitian ini merupakan implementasi tahapan Machine Learning mulai dari data understanding, data preparation, modeling, evaluasi model, interpretasi menggunakan SHAP, hingga deployment aplikasi berbasis Streamlit sebagai bagian dari Proyek Akhir Mata Kuliah Pembelajaran Mesin.
 
 ---
 
 ## Latar Belakang
 
-Proses seleksi penerima beasiswa umumnya masih dilakukan secara manual sehingga membutuhkan waktu yang lama dan berpotensi menimbulkan subjektivitas dalam pengambilan keputusan.
-
-Melalui pendekatan Machine Learning, proses seleksi diharapkan dapat dilakukan secara lebih cepat, objektif, dan konsisten berdasarkan pola dari data historis mahasiswa.
+Proses seleksi penerima beasiswa umumnya masih dilakukan secara manual sehingga membutuhkan waktu yang lama dan berpotensi menimbulkan subjektivitas dalam pengambilan keputusan. Melalui pendekatan Machine Learning, proses seleksi diharapkan dapat dilakukan secara lebih cepat, objektif, dan konsisten berdasarkan pola dari data historis mahasiswa.
 
 ---
 
@@ -20,14 +18,16 @@ Melalui pendekatan Machine Learning, proses seleksi diharapkan dapat dilakukan s
 
 - Bagaimana membangun model Machine Learning untuk mengklasifikasikan kelayakan penerima beasiswa?
 - Algoritma manakah yang memberikan performa terbaik dalam memprediksi kelayakan penerima beasiswa?
+- Bagaimana mengimplementasikan model terbaik ke dalam aplikasi berbasis web?
 
 ---
 
 ## Tujuan Penelitian
 
 - Membangun model klasifikasi penerima beasiswa menggunakan Machine Learning.
-- Membandingkan performa algoritma Random Forest dan Support Vector Machine (SVM).
+- Membandingkan performa algoritma Random Forest, Support Vector Machine (SVM), dan XGBoost.
 - Menentukan model terbaik berdasarkan hasil evaluasi.
+- Mengimplementasikan model terbaik ke dalam aplikasi berbasis Streamlit.
 
 ---
 
@@ -35,7 +35,7 @@ Melalui pendekatan Machine Learning, proses seleksi diharapkan dapat dilakukan s
 
 Dataset yang digunakan merupakan **Dataset Seleksi Beasiswa** yang diperoleh dari Kaggle.
 
-Dataset terdiri dari 300 data mahasiswa dengan beberapa atribut berikut.
+Dataset terdiri dari **300 data mahasiswa** dengan **8 atribut** dan **1 atribut target**.
 
 ### Feature
 
@@ -58,14 +58,13 @@ Dataset terdiri dari 300 data mahasiswa dengan beberapa atribut berikut.
 
 ## Metodologi
 
-Penelitian mengikuti tahapan Machine Learning sebagai berikut.
+Penelitian menggunakan metodologi **CRISP-DM (Cross Industry Standard Process for Data Mining)** yang terdiri atas:
 
+- Business Understanding
 - Data Understanding
-- Data Preprocessing
-- Feature Engineering
-- Data Splitting
-- Model Training
-- Model Evaluation
+- Data Preparation
+- Modeling
+- Evaluation
 - Deployment
 
 ---
@@ -74,26 +73,28 @@ Penelitian mengikuti tahapan Machine Learning sebagai berikut.
 
 - Random Forest
 - Support Vector Machine (SVM)
+- Extreme Gradient Boosting (XGBoost)
 
 ---
 
-## Tahapan Machine Learning
+## Library yang Digunakan
 
-- Data Cleaning
-- Missing Value Handling
-- Encoding Data
-- Feature Scaling
-- Train-Test Split
-- Hyperparameter Tuning
-- Cross Validation
-- Model Evaluation
-- Deployment
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Plotly
+- Scikit-learn
+- XGBoost
+- SHAP
+- Streamlit
+- Joblib
 
 ---
 
 ## Evaluasi Model
 
-Metrik evaluasi yang digunakan:
+Metrik evaluasi yang digunakan meliputi:
 
 - Accuracy
 - Precision
@@ -101,22 +102,33 @@ Metrik evaluasi yang digunakan:
 - F1-Score
 - Confusion Matrix
 - ROC Curve
-- ROC-AUC
+
+Hasil perbandingan model menunjukkan bahwa Random Forest memberikan performa terbaik.
+
+| Model | Accuracy |
+|--------|----------|
+| Random Forest | **73.33%** |
+| Support Vector Machine (SVM) | **70.00%** |
+| XGBoost | **68.33%** |
 
 ---
 
 ## Struktur Repository
 
-```
+```text
 uas-ml/
 │
-├── dataset/
-├── notebook/
-├── images/
-├── models/
-├── report/
+├── app.py
 ├── README.md
-└── requirements.txt
+├── requirements.txt
+│
+├── dataset/
+│
+├── notebook/
+│
+├── images/
+│
+└── laporan/
 ```
 
 ---
@@ -129,47 +141,67 @@ Clone repository.
 git clone https://github.com/rfpmaa/uas-ml.git
 ```
 
-Install library.
+Masuk ke folder project.
+
+```bash
+cd uas-ml
+```
+
+Install seluruh library.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Buka notebook pada folder **notebook/**.
+Jalankan aplikasi Streamlit.
 
-Jalankan seluruh cell secara berurutan.
+```bash
+streamlit run app.py
+```
 
 ---
 
 ## Hasil
 
-Folder `images/` berisi visualisasi hasil eksperimen.
-
 ### Correlation Heatmap
+
 ![Correlation Heatmap](images/correlation_heatmap.png)
 
 ### Confusion Matrix Random Forest
 
 ![RF](images/confusion_matrix_rf.png)
 
-### Confusion Matrix SVM
+### Confusion Matrix Support Vector Machine
 
-![Confusion Matrix SVM](images/confusion_matrix_svm.png)
+![SVM](images/confusion_matrix_svm.png)
+
+### Confusion Matrix XGBoost
+
+![XGBoost](images/confusion_matrix_xgb.png)
 
 ### ROC Curve Random Forest
 
-![ROC Curve RF](images/roc_curve_rf.png)
+![ROC RF](images/roc_curve_rf.png)
 
-### ROC Curve SVM
+### ROC Curve Support Vector Machine
 
-![ROC Curve SVM](images/roc_curve_svm.png)
+![ROC SVM](images/roc_curve_svm.png)
 
+### ROC Curve XGBoost
+
+![ROC XGB](images/roc_curve_xgb.png)
+
+### SHAP Summary Plot
+
+![SHAP](images/shap_summary.png)
 
 ---
 
-## Kesimpulan
+## Deployment
 
-Model Machine Learning akan dibandingkan berdasarkan hasil evaluasi menggunakan Accuracy, Precision, Recall, dan F1-Score untuk menentukan algoritma terbaik dalam mengklasifikasikan kelayakan penerima beasiswa.
+- **GitHub Repository:** https://github.com/rfpmaa/uas-ml
+- **Streamlit:** *(isi link deployment kamu nanti)*
+- **YouTube Presentation:** *(isi link video nanti)*
 
 ---
 
@@ -177,6 +209,8 @@ Model Machine Learning akan dibandingkan berdasarkan hasil evaluasi menggunakan 
 
 **Rafania Putri Mahendra**
 
+Program Studi Teknik Informatika  
+Fakultas Ilmu Komputer  
 Universitas Dian Nuswantoro
 
 Mata Kuliah Pembelajaran Mesin
