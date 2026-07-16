@@ -2,32 +2,29 @@
 
 ## Deskripsi Proyek
 
-Proyek ini bertujuan untuk membangun model Machine Learning yang dapat memprediksi kelayakan penerima beasiswa berdasarkan data akademik dan kondisi sosial ekonomi mahasiswa. Model dikembangkan menggunakan algoritma Random Forest, Support Vector Machine (SVM), dan Extreme Gradient Boosting (XGBoost), kemudian dibandingkan untuk memperoleh algoritma dengan performa terbaik.
-
-Penelitian ini merupakan implementasi tahapan Machine Learning mulai dari data understanding, data preparation, modeling, evaluasi model, interpretasi menggunakan SHAP, hingga deployment aplikasi berbasis Streamlit sebagai bagian dari Proyek Akhir Mata Kuliah Pembelajaran Mesin.
+Proyek ini bertujuan untuk membangun model Machine Learning yang dapat memprediksi kelayakan penerima beasiswa berdasarkan data akademik dan kondisi sosial ekonomi mahasiswa. Model dikembangkan menggunakan algoritma Random Forest, Support Vector Machine (SVM), dan Extreme Gradient Boosting (XGBoost), kemudian dibandingkan untuk memperoleh algoritma dengan performa terbaik. Penelitian ini juga mengimplementasikan model terbaik ke dalam aplikasi berbasis Streamlit sehingga dapat digunakan sebagai sistem pendukung keputusan dalam proses seleksi penerima beasiswa.
 
 ---
 
 ## Latar Belakang
 
-Proses seleksi penerima beasiswa umumnya masih dilakukan secara manual sehingga membutuhkan waktu yang lama dan berpotensi menimbulkan subjektivitas dalam pengambilan keputusan. Melalui pendekatan Machine Learning, proses seleksi diharapkan dapat dilakukan secara lebih cepat, objektif, dan konsisten berdasarkan pola dari data historis mahasiswa.
+Proses seleksi penerima beasiswa umumnya masih dilakukan secara manual sehingga membutuhkan waktu yang lama dan berpotensi menimbulkan subjektivitas dalam pengambilan keputusan. Melalui pendekatan Machine Learning, proses seleksi diharapkan dapat dilakukan secara lebih cepat, objektif, dan konsisten berdasarkan pola dari data historis mahasiswa. Selain itu, metode SHAP digunakan untuk menginterpretasikan hasil prediksi sehingga keputusan yang dihasilkan model menjadi lebih transparan dan mudah dipahami.
 
 ---
 
 ## Rumusan Masalah
 
-- Bagaimana membangun model Machine Learning untuk mengklasifikasikan kelayakan penerima beasiswa?
-- Algoritma manakah yang memberikan performa terbaik dalam memprediksi kelayakan penerima beasiswa?
-- Bagaimana mengimplementasikan model terbaik ke dalam aplikasi berbasis web?
+- Bagaimana membangun model Machine Learning untuk memprediksi kelayakan penerima beasiswa?
+- Bagaimana performa algoritma Random Forest, Support Vector Machine (SVM), dan XGBoost dalam melakukan klasifikasi penerima beasiswa?
+- Algoritma manakah yang memberikan performa terbaik berdasarkan hasil evaluasi?
 
 ---
 
 ## Tujuan Penelitian
 
-- Membangun model klasifikasi penerima beasiswa menggunakan Machine Learning.
+- Membangun model Machine Learning untuk memprediksi kelayakan penerima beasiswa.
 - Membandingkan performa algoritma Random Forest, Support Vector Machine (SVM), dan XGBoost.
-- Menentukan model terbaik berdasarkan hasil evaluasi.
-- Mengimplementasikan model terbaik ke dalam aplikasi berbasis Streamlit.
+- Menentukan algoritma terbaik berdasarkan hasil evaluasi serta menginterpretasikan hasil prediksi menggunakan SHAP.
 
 ---
 
@@ -94,22 +91,15 @@ Penelitian menggunakan metodologi **CRISP-DM (Cross Industry Standard Process fo
 
 ## Evaluasi Model
 
-Metrik evaluasi yang digunakan meliputi:
-
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- Confusion Matrix
-- ROC Curve
-
-Hasil perbandingan model menunjukkan bahwa Random Forest memberikan performa terbaik.
+Model dievaluasi menggunakan metrik Accuracy, Precision, Recall, F1-Score, Confusion Matrix, dan ROC Curve.
 
 | Model | Accuracy |
 |--------|----------|
 | Random Forest | **73.33%** |
 | Support Vector Machine (SVM) | **70.00%** |
 | XGBoost | **68.33%** |
+
+Berdasarkan hasil evaluasi, algoritma **Random Forest** memberikan performa terbaik sehingga dipilih sebagai model utama pada aplikasi prediksi kelayakan penerima beasiswa.
 
 ---
 
@@ -123,11 +113,8 @@ uas-ml/
 ├── requirements.txt
 │
 ├── dataset/
-│
 ├── notebook/
-│
 ├── images/
-│
 └── laporan/
 ```
 
@@ -161,47 +148,129 @@ streamlit run app.py
 
 ---
 
-## Hasil
+# Hasil
 
-### Correlation Heatmap
+<h3>Correlation Heatmap</h3>
 
-![Correlation Heatmap](images/correlation_heatmap.png)
+<p align="center">
+  <img src="images/correlation_heatmap.png" width="500">
+</p>
 
-### Confusion Matrix Random Forest
+---
 
-![RF](images/confusion_matrix_rf.png)
+<h3>Confusion Matrix</h3>
 
-### Confusion Matrix Support Vector Machine
+<table>
+<tr>
 
-![SVM](images/confusion_matrix_svm.png)
+<td align="center">
+<b>Random Forest</b><br>
+<img src="images/confusion_matrix_rf.png" width="280">
+</td>
 
-### Confusion Matrix XGBoost
+<td align="center">
+<b>Support Vector Machine (SVM)</b><br>
+<img src="images/confusion_matrix_svm.png" width="280">
+</td>
 
-![XGBoost](images/confusion_matrix_xgb.png)
+<td align="center">
+<b>XGBoost</b><br>
+<img src="images/confusion_matrix_xgb.png" width="280">
+</td>
 
-### ROC Curve Random Forest
+</tr>
+</table>
 
-![ROC RF](images/roc_curve_rf.png)
+---
 
-### ROC Curve Support Vector Machine
+<h3>ROC Curve</h3>
 
-![ROC SVM](images/roc_curve_svm.png)
+<table>
+<tr>
 
-### ROC Curve XGBoost
+<td align="center">
+<b>Random Forest</b><br>
+<img src="images/roc_curve_rf.png" width="280">
+</td>
 
-![ROC XGB](images/roc_curve_xgb.png)
+<td align="center">
+<b>Support Vector Machine (SVM)</b><br>
+<img src="images/roc_curve_svm.png" width="280">
+</td>
 
-### SHAP Summary Plot
+<td align="center">
+<b>XGBoost</b><br>
+<img src="images/roc_curve_xgb.png" width="280">
+</td>
 
-![SHAP](images/shap_summary.png)
+</tr>
+</table>
+
+---
+
+<h3>SHAP Summary Plot</h3>
+
+<p align="center">
+  <img src="images/shap_summary.png" width="650">
+</p>
+
+---
+
+# Tampilan Aplikasi Streamlit
+
+<table>
+<tr>
+
+<td align="center">
+<b>Dashboard EDA</b><br>
+<img src="images/dashboard.png" width="300">
+</td>
+
+<td align="center">
+<b>Model Demo</b><br>
+<img src="images/model_demo.png" width="300">
+</td>
+
+</tr>
+
+<tr>
+
+<td align="center">
+<b>Evaluasi Model</b><br>
+<img src="images/evaluasi.png" width="300">
+</td>
+
+<td align="center">
+<b>Interpretasi Hasil</b><br>
+<img src="images/interpretasi.png" width="300">
+</td>
+
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<b>Dokumentasi</b><br>
+<img src="images/dokumentasi.png" width="500">
+</td>
+</tr>
+
+</table>
 
 ---
 
 ## Deployment
 
-- **GitHub Repository:** https://github.com/rfpmaa/uas-ml
-- **Streamlit:** *(isi link deployment kamu nanti)*
-- **YouTube Presentation:** *(isi link video nanti)*
+**GitHub Repository**
+
+https://github.com/rfpmaa/uas-ml
+
+**Streamlit**
+
+*(Tambahkan link deployment Streamlit di sini.)*
+
+**YouTube Presentation**
+
+*(Tambahkan link presentasi YouTube di sini.)*
 
 ---
 
@@ -211,6 +280,6 @@ streamlit run app.py
 
 Program Studi Teknik Informatika  
 Fakultas Ilmu Komputer  
-Universitas Dian Nuswantoro
+Universitas Dian Nuswantoro  
 
 Mata Kuliah Pembelajaran Mesin
