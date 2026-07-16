@@ -178,44 +178,109 @@ elif menu == "Evaluasi Model":
     st.markdown("---")
 
     st.subheader("1. Metrik Evaluasi Klasifikasi")
+
     hasil_model = pd.DataFrame({
-        "Algoritma": ["Random Forest", "Support Vector Machine (SVM)"],
-        "Accuracy": ["73.33%", "70.00%"],
-        "Precision": ["75.12%", "71.45%"],
-        "Recall": ["72.50%", "68.20%"],
-        "F1-Score": ["73.79%", "69.78%"]
+        "Algoritma": [
+            "Random Forest",
+            "Support Vector Machine (SVM)",
+            "XGBoost"
+        ],
+        "Accuracy": [
+            "73.33%",
+            "70.00%",
+            "68.33%"
+        ],
+        "Precision": [
+            "75.12%",
+            "71.45%",
+            "69.50%"
+        ],
+        "Recall": [
+            "72.50%",
+            "68.20%",
+            "67.90%"
+        ],
+        "F1-Score": [
+            "73.79%",
+            "69.78%",
+            "68.69%"
+        ]
     })
+
     st.table(hasil_model)
 
     st.info("""
-    Berikut adalah arti dari masing-masing metrik yang digunakan untuk mengevaluasi model klasifikasi:
-    * **Accuracy:** Persentase tebakan model yang benar secara keseluruhan.
-    * **Precision:** Ketepatan model saat memprediksi mahasiswa 'Layak' (seberapa kecil error salah sasaran).
-    * **Recall:** Kemampuan model menemukan/mendeteksi semua mahasiswa yang benar-benar 'Layak'.
-    * **F1-Score:** Rata-rata harmonis yang menyeimbangkan nilai Precision dan Recall.
-    """)
-    
+Berikut adalah arti dari masing-masing metrik yang digunakan untuk mengevaluasi model klasifikasi:
+
+- **Accuracy**: Persentase prediksi yang benar terhadap seluruh data pengujian.
+- **Precision**: Tingkat ketepatan model saat memprediksi mahasiswa layak menerima beasiswa.
+- **Recall**: Kemampuan model dalam menemukan seluruh mahasiswa yang benar-benar layak menerima beasiswa.
+- **F1-Score**: Nilai rata-rata harmonis antara Precision dan Recall yang menunjukkan keseimbangan performa model.
+""")
+
     st.markdown("---")
-    
+
     st.subheader("2. Confusion Matrix")
-    col1, col2 = st.columns(2)
+
+    col1, col2, col3 = st.columns(3)
+
     with col1:
         st.markdown("**Random Forest**")
         st.image("images/confusion_matrix_rf.png", use_container_width=True)
+
     with col2:
         st.markdown("**SVM**")
         st.image("images/confusion_matrix_svm.png", use_container_width=True)
 
-    st.markdown("---")
-    
-    st.subheader("3. ROC Curve")
-    col3, col4 = st.columns(2)
     with col3:
+        st.markdown("**XGBoost**")
+        st.image("images/confusion_matrix_xgb.png", use_container_width=True)
+
+    st.markdown("---")
+
+    st.subheader("3. ROC Curve")
+
+    col4, col5, col6 = st.columns(3)
+
+    with col4:
         st.markdown("**Random Forest**")
         st.image("images/roc_curve_rf.png", use_container_width=True)
-    with col4:
+
+    with col5:
         st.markdown("**SVM**")
         st.image("images/roc_curve_svm.png", use_container_width=True)
+
+    with col6:
+        st.markdown("**XGBoost**")
+        st.image("images/roc_curve_xgb.png", use_container_width=True)
+
+    st.markdown("---")
+
+    st.subheader("4. Perbandingan Model")
+
+    hasil = pd.DataFrame({
+        "Model": [
+            "Random Forest",
+            "Support Vector Machine (SVM)",
+            "XGBoost"
+        ],
+        "Accuracy": [
+            "73.33%",
+            "70.00%",
+            "68.33%"
+        ]
+    })
+
+    st.table(hasil)
+
+    st.write("""
+Berdasarkan hasil evaluasi terhadap tiga algoritma klasifikasi, **Random Forest**
+memperoleh nilai accuracy tertinggi sebesar **73,33%**, diikuti oleh **Support Vector Machine (SVM)**
+sebesar **70,00%**, dan **XGBoost** sebesar **68,33%**.
+Hasil tersebut menunjukkan bahwa Random Forest memiliki kemampuan terbaik dalam
+mengenali pola data pada dataset penerima beasiswa, sehingga dipilih sebagai model
+utama yang diimplementasikan pada aplikasi prediksi kelayakan penerima beasiswa.
+""")
 
 # ==========================
 # MENU 4: INTERPRETASI HASIL
